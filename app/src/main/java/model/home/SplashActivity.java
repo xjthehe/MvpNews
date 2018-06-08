@@ -14,7 +14,6 @@ import rx.Subscriber;
 import utils.RxHelper;
 import widget.SimpleButton;
 
-
 /**
  * Created by rowen on 2018/2/26.
  */
@@ -35,9 +34,6 @@ public class SplashActivity extends AppCompatActivity{
      * 主页面
      */
     private void toHome(){
-        /////////////////////////
-        Toast.makeText(this,"xxx",Toast.LENGTH_SHORT).show();
-
         RxHelper.countdown(5)
                 .subscribe(new Subscriber<Integer>(){
                     @Override
