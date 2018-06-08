@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -16,6 +17,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        greendao {
+            schemaVersion 1
+            targetGenDir 'src/main/java'
+        }
     }
 
     //在android中配置
@@ -29,23 +34,20 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
     //配置ButterKnife:注意使用compile导包 : compile会编译到最后的APK或library，apt不会
     compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.jakewharton:butterknife-compiler:8.6.0'
-
     //Dagger2的使用注意使用provided引用butterKnife中的library解决冲突
     compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.google.dagger:dagger:2.5'
     provided 'com.google.dagger:dagger-compiler:2.5'
-
     // rxjava
     compile 'io.reactivex:rxjava:1.1.9'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -53,4 +55,7 @@ dependencies {
     compile 'com.trello:rxlifecycle:1.0'
     compile 'com.trello:rxlifecycle-components:1.0'
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+    // greendao
+    compile 'org.greenrobot:greendao:3.2.2'
+    compile 'com.google.code.gson:gson:2.2.4'
 }
