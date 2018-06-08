@@ -3,8 +3,6 @@ import model.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
-
-
     @Override
     protected int attachLayoutRes() {
         return 0;
@@ -16,7 +14,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews(){
 
     }
 
