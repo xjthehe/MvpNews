@@ -10,19 +10,22 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.urovo.com.mvpnews.R;
 
 /**
  * Created by long on 2016/8/23.
  * 加载、空视图
  */
 public class EmptyLayout extends FrameLayout {
-
     public static final int STATUS_HIDE = 1001;
     public static final int STATUS_LOADING = 1;
     public static final int STATUS_NO_NET = 2;
@@ -31,7 +34,6 @@ public class EmptyLayout extends FrameLayout {
     private OnRetryListener mOnRetryListener;
     private int mEmptyStatus = STATUS_LOADING;
     private int mBgColor;
-
     @BindView(R.id.tv_net_error)
     TextView mTvEmptyMessage;
     @BindView(R.id.rl_empty_container)
@@ -40,17 +42,14 @@ public class EmptyLayout extends FrameLayout {
     SpinKitView mEmptyLoading;
     @BindView(R.id.empty_layout)
     FrameLayout mEmptyLayout;
-
     public EmptyLayout(Context context) {
         this(context, null);
     }
-
     public EmptyLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
         init(attrs);
     }
-
     /**
      * 初始化
      */
@@ -66,7 +65,6 @@ public class EmptyLayout extends FrameLayout {
         mEmptyLayout.setBackgroundColor(mBgColor);
         _switchEmptyView();
     }
-
     /**
      * 隐藏视图
      */
@@ -74,7 +72,6 @@ public class EmptyLayout extends FrameLayout {
         mEmptyStatus = STATUS_HIDE;
         _switchEmptyView();
     }
-
     /**
      * 设置状态
      *
@@ -84,7 +81,6 @@ public class EmptyLayout extends FrameLayout {
         mEmptyStatus = emptyStatus;
         _switchEmptyView();
     }
-
     /**
      * 获取状态
      * @return  状态
@@ -92,7 +88,6 @@ public class EmptyLayout extends FrameLayout {
     public int getEmptyStatus() {
         return mEmptyStatus;
     }
-
     /**
      * 设置异常消息
      *
@@ -101,7 +96,6 @@ public class EmptyLayout extends FrameLayout {
     public void setEmptyMessage(String msg) {
         mTvEmptyMessage.setText(msg);
     }
-
     public void hideErrorIcon() {
         mTvEmptyMessage.setCompoundDrawables(null, null, null, null);
     }
@@ -122,7 +116,7 @@ public class EmptyLayout extends FrameLayout {
 //        mIvEmptyIcon.setImageDrawable(drawable);
 //    }
 
-    public void setLoadingIcon(Sprite d) {
+    public void setLoadingIcon(Sprite d){
         mEmptyLoading.setIndeterminateDrawable(d);
     }
 

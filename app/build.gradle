@@ -57,15 +57,15 @@ dependencies {
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
     // greendao
     compile 'org.greenrobot:greendao:3.2.2'
-    compile 'com.google.code.gson:gson:2.2.4'
-
+    compile 'com.google.code.gson:gson:2.8.2'
     // leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
+    compile 'com.robin.lazy.logger:LoggerLibrary:1.0.1'
 
-
+    // logger
+    compile 'com.orhanobut:logger:1.15'
 
 
 }
