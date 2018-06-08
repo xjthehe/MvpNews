@@ -5,7 +5,7 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 /**
- * Created by lenovo on 2018/2/27.
+ * Created by rowen on 2018/2/27.
  */
 @Entity
 public class NewsTypeInfo {

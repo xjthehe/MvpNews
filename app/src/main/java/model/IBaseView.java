@@ -3,7 +3,7 @@ package model;
 import com.trello.rxlifecycle.LifecycleTransformer;
 
 /**
- * Created by lenovo on 2018/2/26.
+ * Created by rowen on 2018/2/26.
  */
 
 public interface IBaseView {

@@ -1,4 +1,4 @@
-package cn.urovo.com.mvpnews;
+package model.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.urovo.com.mvpnews.R;
 import rx.Subscriber;
 import utils.RxHelper;
 import widget.SimpleButton;

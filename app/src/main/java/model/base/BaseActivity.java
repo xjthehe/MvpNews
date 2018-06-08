@@ -22,22 +22,18 @@ import widget.EmptyLayout;
  */
 
 public abstract class BaseActivity extends AppCompatActivity implements IBaseView, EmptyLayout.OnRetryListener{
-
     /**
      * 把 EmptyLayout 放在基类统一处理，@Nullable 表明 View 可以为 null，详细可看 ButterKnife
      */
     @Nullable
     @BindView(R.id.empty_layout)
     protected EmptyLayout mEmptyLayout;
-
-
 //    /**
 //     * 刷新控件，注意，资源的ID一定要一样
 //     */
 //    @Nullable
 //    @BindView(R.id.swipe_refresh)
 //    SwipeRefreshLayout mSwipeRefresh;
-
     /**
      * 绑定布局文件
      *
@@ -53,7 +49,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      * 初始化视图控件
      */
     protected abstract void initViews();
-
     /**
      * 更新视图控件
      */
