@@ -1,4 +1,4 @@
-package cn.urovo.com.mvpnews;
+package utils;
 
 import java.util.concurrent.TimeUnit;
 

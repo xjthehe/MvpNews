@@ -5,7 +5,6 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import inject.DaggerComponets;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.tv_main)
@@ -16,10 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        DaggerComponets.builder()
-                .mainModel(new MainModel(this))
-                .build()
-                .injectMain(this);
+
     }
 
     @OnClick(R.id.tv_main)

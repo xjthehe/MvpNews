@@ -11,10 +11,13 @@ import org.greenrobot.greendao.database.Database;
 
 import java.io.File;
 
-import inject.DaggerComponets;
+import inject.components.ApplicationComponent;
+import inject.components.DaggerApplicationComponent;
+import inject.model.ApplicationModule;
 import local.dao.NewsTypeDao;
 import local.table.DaoMaster;
 import local.table.DaoSession;
+import rxbus.RxBus;
 import utils.ActivityCollector;
 import utils.CrashHandler;
 import utils.OnSystemCrashCallback;
@@ -30,7 +33,10 @@ public class NewsApplication  extends Application {
     private static int mainThreadId;
     protected static File externalAppDir;// 该应用程序在SD卡上文件根目录
     public static DaoSession mDaoSession;
+    private static ApplicationComponent sAppComponent;
 
+    // 因为下载那边需要用，这里在外面实例化在通过 ApplicationModule 设置
+    private RxBus mRxBus = new RxBus();
     @Override
     public void onCreate(){
         super.onCreate();
@@ -51,10 +57,14 @@ public class NewsApplication  extends Application {
         setupLeakCanary();//内存泄漏检测。
         _initDatabase();
         _initInjector();
+//        RetrofitService.init();
+
     }
 
     private void _initInjector() {
-
+        sAppComponent= DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this,mDaoSession,mRxBus))
+                .build();
     }
 
     private void setupLeakCanary(){

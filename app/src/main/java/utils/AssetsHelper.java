@@ -2,7 +2,6 @@ package utils;
 
 import android.content.Context;
 
-import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +32,6 @@ public class AssetsHelper {
             inStream.close();
             data = new String(bytes, "utf-8");        //将bytes转为utf-8字符串
         } catch (IOException e) {
-            Logger.e(e.toString());
             e.printStackTrace();
         }
         return data;
