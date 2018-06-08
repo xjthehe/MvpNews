@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "cn.urovo.com.mvpnews"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -16,6 +16,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    //在android中配置
+    /* 解决Dagger2跟ButterKnife的冲突 */
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
 }
 
@@ -27,4 +36,21 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    //配置ButterKnife:注意使用compile导包 : compile会编译到最后的APK或library，apt不会
+    compile 'com.jakewharton:butterknife:8.6.0'
+    compile 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    //Dagger2的使用注意使用provided引用butterKnife中的library解决冲突
+    compile 'org.glassfish:javax.annotation:10.0-b28'
+    compile 'com.google.dagger:dagger:2.5'
+    provided 'com.google.dagger:dagger-compiler:2.5'
+
+    // rxjava
+    compile 'io.reactivex:rxjava:1.1.9'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.trello:rxlifecycle:1.0'
+    compile 'com.trello:rxlifecycle-components:1.0'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
 }
