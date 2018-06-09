@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.urovo.com.mvpnews.R;
@@ -25,6 +27,9 @@ import widget.EmptyLayout;
 public abstract class BaseFragment <T extends IBasePresenter> extends RxFragment implements IBaseView, EmptyLayout.OnRetryListener{
     @BindView(R.id.empty_layout)
     EmptyLayout mEmptyLayout;
+    @Inject
+    protected T mPresenter;
+
     protected Context mContext;
     //缓存Fragment view
     private View mRootView;

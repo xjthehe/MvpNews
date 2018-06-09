@@ -1,5 +1,6 @@
 package inject.model;
 
+import adapter.ViewPagerAdapter;
 import dagger.Module;
 import dagger.Provides;
 import inject.PreFragment;
@@ -25,4 +26,9 @@ public class NewsMainModule{
         return new NewsMainPresenter(mView,daoSession.getNewsTypeInfoDao(),rxBus);
     }
 
+    @PreFragment
+    @Provides
+    public ViewPagerAdapter provideViewPagerAdapter(){
+        return new ViewPagerAdapter(mView.getChildFragmentManager());
+    }
 }

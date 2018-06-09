@@ -3,12 +3,14 @@ package adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by lenovo on 2018/6/9.
+ * Created by rowen on 2018/6/9.
  */
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -32,6 +34,50 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTitles.get(position);
+    }
 
+    @Override
+    public int getItemPosition(Object object) {
+        return PagerAdapter.POSITION_NONE;
+    }
 
+    public void setItems(List<Fragment> fragments,List<String> mTitles){
+        this.fragments=fragments;
+        this.mTitles=mTitles;
+        notifyDataSetChanged();
+    }
+
+    public void addItem(Fragment fragment,String title){
+        fragments.add(fragment);
+        mTitles.add(title);
+        notifyDataSetChanged();
+    }
+
+    public void delItem(int position) {
+        mTitles.remove(position);
+        fragments.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public int delItem(String title) {
+        int index = mTitles.indexOf(title);
+        if (index != -1) {
+            delItem(index);
+        }
+        return index;
+    }
+
+    public void swapItems(int fromPos, int toPos) {
+        Collections.swap(mTitles, fromPos, toPos);
+        Collections.swap(fragments, fromPos, toPos);
+        notifyDataSetChanged();
+    }
+
+    public void modifyTitle(int position, String title) {
+        mTitles.set(position, title);
+        notifyDataSetChanged();
+    }
 }
