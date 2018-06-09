@@ -1,4 +1,4 @@
-package model;
+package model.base;
 
 import com.trello.rxlifecycle.LifecycleTransformer;
 
@@ -22,10 +22,22 @@ public interface IBaseView {
      */
     void showNetError();
 
+
+    /**
+     * 绑定生命周期
+     * @param <T>
+     * @return
+     */
+    <T> LifecycleTransformer<T> bindToLife();
+
+    /**
+     * 完成刷新, 新增控制刷新
+     */
+
+
     /**
      * 完成刷新, 新增控制刷新
      */
     void finishRefresh();
-
 
 }

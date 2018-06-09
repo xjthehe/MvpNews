@@ -1,11 +1,10 @@
 package model.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.support.annotation.LayoutRes;
 
 import com.orhanobut.logger.Logger;
@@ -13,7 +12,6 @@ import com.orhanobut.logger.Logger;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.urovo.com.mvpnews.R;
-import model.IBaseView;
 import utils.ActivityCollector;
 import widget.EmptyLayout;
 
@@ -118,4 +116,24 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     public void onRetry() {
         updateViews(false);
     }
+
+    /**
+     * 添加 Fragment
+     *
+     * @param containerViewId
+     * @param fragment
+     */
+    protected void addFragment(int containerViewId, Fragment fragment) {
+      FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(containerViewId,fragment);
+        fragmentTransaction.commit();
+    }
+
+
+
+
+
+
+
+
 }

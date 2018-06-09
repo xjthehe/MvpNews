@@ -1,4 +1,5 @@
 package model.home;
+import android.Manifest;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -6,13 +7,18 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.tbruyelle.rxpermissions.RxPermissions;
+
 import butterknife.BindView;
 import cn.urovo.com.mvpnews.R;
 import model.base.BaseActivity;
+import rx.functions.Action1;
+import utils.SnackbarUtils;
 
 public class MainActivity extends BaseActivity  implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -20,6 +26,7 @@ public class MainActivity extends BaseActivity  implements NavigationView.OnNavi
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
     NavigationView mNavView;
+    private SparseArray<String> mSparseTags = new SparseArray<>();
 
 
 
@@ -59,11 +66,35 @@ public class MainActivity extends BaseActivity  implements NavigationView.OnNavi
     protected void initViews(){
         //初始化根布局mDrawerLayout和侧边栏的布局mNavView
         _initDrawerLayout(mDrawerLayout, mNavView);
+
+        mSparseTags.put(R.id.nav_news, "News");
+        mSparseTags.put(R.id.nav_photos, "Photos");
+        mSparseTags.put(R.id.nav_videos, "Videos");
+        _getPermission();//权限动态申请权限
+    }
+
+    private void _getPermission() {
+        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean granted) {
+                        if (granted) {
+//                            final File dir = new File(FileDownloader.getDownloadDir());
+//                            if (!dir.exists() || !dir.isDirectory()) {
+//                                dir.delete();
+//                                dir.mkdirs();
+//                            }
+                        } else {
+                            SnackbarUtils.showSnackbar(MainActivity.this, "获取读写文件权限失败", true);
+                        }
+                    }
+                });
     }
 
     @Override
     protected void updateViews(boolean isRefresh) {
-
+        mNavView.setCheckedItem(R.id.nav_news);
     }
 
 
