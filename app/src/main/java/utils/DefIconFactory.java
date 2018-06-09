@@ -3,7 +3,8 @@ package utils;
 
 import java.util.Random;
 
-import cn.urovo.com.mvpdemo.R;
+import cn.urovo.com.mvpnews.R;
+
 
 /**
  * Created by long on 2016/9/23.

@@ -2,13 +2,12 @@ package utils;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
-
 import api.NewsInfo;
+import api.NewsUtils;
 
 
 /**
@@ -16,9 +15,7 @@ import api.NewsInfo;
  * 滑动器帮助类
  */
 public final class SliderHelper {
-
     private static final String SLIDER_KEY = "SliderKey";
-
     private SliderHelper() {
         throw new RuntimeException("SliderHelper cannot be initialized!");
     }

@@ -3,10 +3,15 @@ package model.news.newslist;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.daimajia.slider.library.SliderLayout;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import adapter.item.NewsMultiItem;
 import api.NewsInfo;
@@ -15,10 +20,12 @@ import cn.urovo.com.mvpnews.R;
 import inject.components.DaggerNewListComponent;
 import inject.model.NewsListModule;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
 import model.base.BaseFragment;
 import model.base.IBasePresenter;
 import model.news.NewsMainFragment;
 import utils.RecyclerViewHelper;
+import utils.SliderHelper;
 
 /**
  * Created by rowen on 2018/6/9.
@@ -28,7 +35,8 @@ public class NewsListFragment extends BaseFragment<IBasePresenter> implements IN
     private static final String NEWS_TYPE_KEY = "NewsTypeKey";
     @BindView(R.id.rv_news_list)
     RecyclerView mRvNewsList;
-    
+    @Inject
+    BaseQuickAdapter mAdapter;
     private SliderLayout mAdSlider;
     private String mNewsId;
 
@@ -66,18 +74,19 @@ public class NewsListFragment extends BaseFragment<IBasePresenter> implements IN
 
     @Override
     protected void initViews() {
+        SlideInRightAnimationAdapter animAdapter = new SlideInRightAnimationAdapter(mAdapter);
         RecyclerViewHelper.initRecyclerViewV(mContext, mRvNewsList, true, new AlphaInAnimationAdapter(animAdapter));
-
     }
 
     @Override
     protected void updateViews(boolean isRefresh) {
-
+        mPresenter.getData(isRefresh);
     }
 
     @Override
     public void loadData(List<NewsMultiItem> data) {
-
+        mAdapter.addData(data);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -92,6 +101,9 @@ public class NewsListFragment extends BaseFragment<IBasePresenter> implements IN
 
     @Override
     public void loadAdData(NewsInfo newsBean) {
-
+        View view = LayoutInflater.from(mContext).inflate(R.layout.head_news_list, null);
+        mAdSlider = (SliderLayout) view.findViewById(R.id.slider_ads);
+        SliderHelper.initAdSlider(mContext, mAdSlider, newsBean);
+        mAdapter.addHeaderView(view);
     }
 }
