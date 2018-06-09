@@ -61,6 +61,17 @@ public class NewsApplication  extends Application {
 
     }
 
+
+
+    public static ApplicationComponent getAppComponent() {
+        return sAppComponent;
+    }
+
+    public static Context getContext() {
+        return context;
+    }
+
+
     private void _initInjector() {
         sAppComponent= DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this,mDaoSession,mRxBus))

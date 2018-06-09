@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.LayoutRes;
+import android.support.v7.widget.Toolbar;
 
 import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle.LifecycleTransformer;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +22,7 @@ import widget.EmptyLayout;
  * Created by lenovo on 2018/6/8.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements IBaseView, EmptyLayout.OnRetryListener{
+public abstract class BaseActivity <T extends IBasePresenter> extends RxAppCompatActivity implements IBaseView, EmptyLayout.OnRetryListener{
     /**
      * 把 EmptyLayout 放在基类统一处理，@Nullable 表明 View 可以为 null，详细可看 ButterKnife
      */
@@ -88,14 +91,12 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
         }
     }
-
     @Override
     public void hideLoading() {
         if (mEmptyLayout != null) {
             mEmptyLayout.hide();
         }
     }
-
     @Override
     public void showNetError() {
         if (mEmptyLayout != null) {
@@ -103,7 +104,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             mEmptyLayout.setRetryListener((EmptyLayout.OnRetryListener) this);
         }
     }
-
     @Override
     public void finishRefresh() {
         if (mEmptyLayout != null) {
@@ -111,10 +111,20 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             mEmptyLayout.setRetryListener( this);
         }
     }
-
     @Override
     public void onRetry() {
         updateViews(false);
+    }
+    /**
+     * 添加 Fragment
+     *
+     * @param containerViewId
+     * @param fragment
+     */
+    protected void addFragment(int containerViewId, Fragment fragment) {
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(containerViewId,fragment);
+        fragmentTransaction.commit();
     }
 
     /**
@@ -123,17 +133,33 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      * @param containerViewId
      * @param fragment
      */
-    protected void addFragment(int containerViewId, Fragment fragment) {
-      FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(containerViewId,fragment);
+    protected void addFragment(int containerViewId, Fragment fragment, String tag) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        // 设置tag，不然下面 findFragmentByTag(tag)找不到
+        fragmentTransaction.add(containerViewId, fragment, tag);
+        fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();
     }
 
+    /**
+     * 初始化 Toolbar
+     *
+     * @param toolbar
+     * @param homeAsUpEnabled
+     * @param title
+     */
+    protected void initToolBar(Toolbar toolbar, boolean homeAsUpEnabled, String title) {
+        toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUpEnabled);
+    }
 
+    protected void initToolBar(Toolbar toolbar, boolean homeAsUpEnabled, int resTitle) {
+        initToolBar(toolbar, homeAsUpEnabled, getString(resTitle));
+    }
 
-
-
-
-
-
+    @Override
+    public <T> LifecycleTransformer<T> bindToLife() {
+        return this.<T>bindToLifecycle();
+    }
 }

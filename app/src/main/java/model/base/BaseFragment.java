@@ -3,6 +3,7 @@ package model.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import com.trello.rxlifecycle.components.support.RxFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.urovo.com.mvpnews.R;
+import global.NewsApplication;
+import inject.components.ApplicationComponent;
 import widget.EmptyLayout;
 
 /**
@@ -123,6 +126,24 @@ public abstract class BaseFragment <T extends IBasePresenter> extends RxFragment
     }
 
 
+    /**
+     *  获取 ApplicationComponent
+     * @return
+     */
+    protected ApplicationComponent getAppComponent(){
+        return NewsApplication.getAppComponent();
+    }
+
+    /**
+     * 初始化 Toolbar
+     *
+     * @param toolbar
+     * @param homeAsUpEnabled
+     * @param title
+     */
+    protected void initToolBar(Toolbar toolbar, boolean homeAsUpEnabled, String title) {
+        ((BaseActivity)getActivity()).initToolBar(toolbar, homeAsUpEnabled, title);
+    }
 
 
 

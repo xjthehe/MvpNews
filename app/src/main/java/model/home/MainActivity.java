@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
+import com.trello.rxlifecycle.LifecycleTransformer;
 
 import butterknife.BindView;
 import cn.urovo.com.mvpnews.R;
 import model.base.BaseActivity;
+import model.news.NewsMainFragment;
 import rx.functions.Action1;
 import utils.SnackbarUtils;
 
@@ -66,7 +68,6 @@ public class MainActivity extends BaseActivity  implements NavigationView.OnNavi
     protected void initViews(){
         //初始化根布局mDrawerLayout和侧边栏的布局mNavView
         _initDrawerLayout(mDrawerLayout, mNavView);
-
         mSparseTags.put(R.id.nav_news, "News");
         mSparseTags.put(R.id.nav_photos, "Photos");
         mSparseTags.put(R.id.nav_videos, "Videos");
@@ -95,6 +96,7 @@ public class MainActivity extends BaseActivity  implements NavigationView.OnNavi
     @Override
     protected void updateViews(boolean isRefresh) {
         mNavView.setCheckedItem(R.id.nav_news);
+        addFragment(R.id.fl_container, new NewsMainFragment(), "News");
     }
 
 
@@ -134,4 +136,5 @@ public class MainActivity extends BaseActivity  implements NavigationView.OnNavi
         mItemId = item.getItemId();
         return true;
     }
+
 }
