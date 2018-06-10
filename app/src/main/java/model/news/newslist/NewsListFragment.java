@@ -91,7 +91,8 @@ public class NewsListFragment extends BaseFragment<IBasePresenter> implements IN
 
     @Override
     public void loadMoreData(List<NewsMultiItem> data) {
-
+        mAdapter.addData(data);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -106,4 +107,22 @@ public class NewsListFragment extends BaseFragment<IBasePresenter> implements IN
         SliderHelper.initAdSlider(mContext, mAdSlider, newsBean);
         mAdapter.addHeaderView(view);
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdSlider != null) {
+            mAdSlider.startAutoCycle();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAdSlider != null) {
+            mAdSlider.stopAutoCycle();
+        }
+    }
+
 }

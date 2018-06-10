@@ -11,6 +11,7 @@ import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.trello.rxlifecycle.LifecycleTransformer;
@@ -23,30 +24,35 @@ import rx.functions.Action1;
 import utils.SnackbarUtils;
 
 public class MainActivity extends BaseActivity  implements NavigationView.OnNavigationItemSelectedListener{
-
-    @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
+    @BindView(R.id.fl_container)
+    FrameLayout mFlContainer;
     @BindView(R.id.nav_view)
     NavigationView mNavView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+
     private SparseArray<String> mSparseTags = new SparseArray<>();
-
-
-
+    private long mExitTime = 0;
     private int mItemId = -1;
     private Handler mHandler = new Handler(new Handler.Callback(){
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case R.id.nav_news:
-//                    replaceFragment(R.id.fl_container, new NewsMainFragment(), mSparseTags.get(R.id.nav_news));
+                    replaceFragment(R.id.fl_container, new NewsMainFragment(), mSparseTags.get(R.id.nav_news));
                     break;
                 case R.id.nav_photos:
+                    replaceFragment(R.id.fl_container, new NewsMainFragment(), mSparseTags.get(R.id.nav_news));
+
 //                    replaceFragment(R.id.fl_container, new PhotoMainFragement(), mSparseTags.get(R.id.nav_photos));
                     break;
                 case R.id.nav_videos:
+                    replaceFragment(R.id.fl_container, new NewsMainFragment(), mSparseTags.get(R.id.nav_news));
+
 //                    replaceFragment(R.id.fl_container, new VideoMainFragment(), mSparseTags.get(R.id.nav_videos));
                     break;
                 case R.id.nav_setting:
+                    replaceFragment(R.id.fl_container, new NewsMainFragment(), mSparseTags.get(R.id.nav_news));
 //                    SettingsActivity.launch(HomeActivity.this);
                     break;
             }

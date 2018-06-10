@@ -3,6 +3,7 @@ package model.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 import cn.urovo.com.mvpnews.R;
 import global.NewsApplication;
 import inject.components.ApplicationComponent;
+import utils.SwipeRefreshHelper;
 import widget.EmptyLayout;
 
 /**
@@ -25,8 +28,13 @@ import widget.EmptyLayout;
  * 碎片基类
  */
 public abstract class BaseFragment <T extends IBasePresenter> extends RxFragment implements IBaseView, EmptyLayout.OnRetryListener{
+    @Nullable
     @BindView(R.id.empty_layout)
     EmptyLayout mEmptyLayout;
+    @Nullable
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefresh;
+
     @Inject
     protected T mPresenter;
 
@@ -111,23 +119,23 @@ public abstract class BaseFragment <T extends IBasePresenter> extends RxFragment
 
     @Override
     public void finishRefresh() {
-//        if (mSwipeRefresh != null) {
-//            mSwipeRefresh.setRefreshing(false);
-//        }
+        if (mSwipeRefresh != null) {
+            mSwipeRefresh.setRefreshing(false);
+        }
     }
 
     /**
      * 初始化下拉刷新
      */
     private void initSwipeRefresh() {
-//        if (mSwipeRefresh != null) {
-//            SwipeRefreshHelper.init(mSwipeRefresh, new SwipeRefreshLayout.OnRefreshListener() {
-//                @Override
-//                public void onRefresh() {
-//                    updateViews(true);
-//                }
-//            });
-//        }
+        if (mSwipeRefresh != null) {
+            SwipeRefreshHelper.init(mSwipeRefresh, new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    updateViews(true);
+                }
+            });
+        }
     }
 
 

@@ -22,7 +22,7 @@ import butterknife.OnClick;
 import cn.urovo.com.mvpnews.R;
 
 /**
- * Created by long on 2016/8/23.
+ *
  * 加载、空视图
  */
 public class EmptyLayout extends FrameLayout {

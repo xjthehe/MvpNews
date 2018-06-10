@@ -11,6 +11,7 @@ import org.greenrobot.greendao.database.Database;
 
 import java.io.File;
 
+import api.RetrofitService;
 import inject.components.ApplicationComponent;
 import inject.components.DaggerApplicationComponent;
 import inject.model.ApplicationModule;
@@ -57,7 +58,7 @@ public class NewsApplication  extends Application {
         setupLeakCanary();//内存泄漏检测。
         _initDatabase();
         _initInjector();
-//        RetrofitService.init();
+        RetrofitService.init();
 
     }
 
