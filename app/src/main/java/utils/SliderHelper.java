@@ -8,6 +8,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import api.NewsInfo;
 import api.NewsUtils;
+import model.news.photoset.PhotoSetActivity;
 
 
 /**
@@ -42,7 +43,7 @@ public final class SliderHelper {
                                 NewsInfo.AdData adData = slider.getBundle().getParcelable(SLIDER_KEY);
                                 if (adData != null) {
                                     if (NewsUtils.isNewsPhotoSet(adData.getTag())) {
-//                                        PhotoSetActivity.launch(context, adData.getUrl());
+                                        PhotoSetActivity.launch(context, adData.getUrl());
                                     } else if (NewsUtils.isNewsSpecial(adData.getTag())) {
 //                                        SpecialActivity.launch(context, adData.getUrl());
                                     } else {

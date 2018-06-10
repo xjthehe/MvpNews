@@ -100,13 +100,16 @@ public class NewsListFragment extends BaseFragment<IBasePresenter> implements IN
 
     }
 
+    /**
+     * 加载广告栏数据
+     * @param newsBean 新闻
+     */
     @Override
     public void loadAdData(NewsInfo newsBean) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.head_news_list, null);
         mAdSlider = (SliderLayout) view.findViewById(R.id.slider_ads);
         SliderHelper.initAdSlider(mContext, mAdSlider, newsBean);
+        mAdapter.removeAllHeaderView();
         mAdapter.addHeaderView(view);
     }
-
-
 }
