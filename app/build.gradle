@@ -87,4 +87,9 @@ dependencies {
 
     // LabelView
     compile 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'
+
+
+    //GLIDE
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
 }

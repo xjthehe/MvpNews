@@ -53,7 +53,12 @@ public class NewsListPresenter implements IBasePresenter{
                 .subscribe(new Subscriber<List<NewsMultiItem>>() {
                     @Override
                     public void onCompleted() {
-
+                        Logger.w("onCompleted " + isRefresh);
+                        if (isRefresh) {
+                            mView.finishRefresh();
+                        } else {
+                            mView.hideLoading();
+                        }
                     }
                     @Override
                     public void onError(Throwable e){
@@ -62,7 +67,7 @@ public class NewsListPresenter implements IBasePresenter{
                     }
                     @Override
                     public void onNext(List<NewsMultiItem> newsMultiItems){
-                        mView.loadMoreData(newsMultiItems);
+                        mView.loadData(newsMultiItems);
                         mPage++;
                     }
                 });

@@ -109,20 +109,4 @@ public class NewsListFragment extends BaseFragment<IBasePresenter> implements IN
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mAdSlider != null) {
-            mAdSlider.startAutoCycle();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAdSlider != null) {
-            mAdSlider.stopAutoCycle();
-        }
-    }
-
 }

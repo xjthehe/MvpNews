@@ -31,10 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                android:navigationIcon="@drawable/ic_nav"
-                app:layout_scrollFlags="scroll|snap|enterAlways"
-                >
-            </android.support.v7.widget.Toolbar>
+                app:navigationIcon="@drawable/ic_nav"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
